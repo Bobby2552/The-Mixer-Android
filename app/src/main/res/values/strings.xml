@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">The Mixer</string>
+    <string name="action_inventory">Inventory</string>
+</resources>
