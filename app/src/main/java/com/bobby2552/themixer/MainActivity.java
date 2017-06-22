@@ -31,6 +31,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        refreshArrays();
+
+        System.out.println("Cocktails: " + Arrays.toString(Shared.getCocktailNames()));
+
+        cocktailsList = (ListView) findViewById(R.id.cocktails);
+
+        cocktailsList.setAdapter(new ArrayAdapter<String>(this, R.layout.cocktail_adapter, Shared.getCocktailNames()));
+
+        cocktailsList.setTextFilterEnabled(true);
+
+        cocktailsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = (String) ((TextView) view).getText();
+
+                Toast.makeText(getApplicationContext(), "Making a " + name, Toast.LENGTH_SHORT).show();
+                // TODO Send command to Arduino with recipe
+            }
+        });
+    }
+
+    public void refreshArrays() {
+        Shared.cocktails = new ArrayList<>();
+        Shared.drinks = new ArrayList<>();
         JSONArray drinks = new JSONArray();
         try {
             drinks = new JSONArray(drinksJSON);
@@ -79,24 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-        System.out.println("Cocktails: " + Arrays.toString(Shared.getCocktailNames()));
-
-        cocktailsList = (ListView) findViewById(R.id.cocktails);
-
-        cocktailsList.setAdapter(new ArrayAdapter<String>(this, R.layout.cocktail_adapter, Shared.getCocktailNames()));
-
-        cocktailsList.setTextFilterEnabled(true);
-
-        cocktailsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = (String) ((TextView) view).getText();
-
-                Toast.makeText(getApplicationContext(), "Making a " + name, Toast.LENGTH_SHORT).show();
-                // TODO Send command to Arduino with recipe
-            }
-        });
     }
 
     @Override
