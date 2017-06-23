@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">The Mixer</string>
     <string name="action_inventory">Inventory</string>
+    <string name="action_addCocktail">Add Cocktail</string>
+    <string name="cocktail_name">Cocktail Name</string>
+    <string name="shots">Shots</string>
 </resources>

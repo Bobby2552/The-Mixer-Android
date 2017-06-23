@@ -7,4 +7,11 @@
         android:icon="@drawable/ic_storage_white_24dp"
         android:title="@string/action_inventory"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/addCocktail"
+        android:icon="@drawable/ic_add_white_24dp"
+        android:title="@string/action_addCocktail"
+        app:showAsAction="always"
+        />
 </menu>

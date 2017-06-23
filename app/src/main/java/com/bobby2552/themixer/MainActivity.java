@@ -119,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.inventory) {
             startActivity(new Intent(getApplicationContext(), Inventory.class));
             // Pull up the inventory page.
+        } else if (id == R.id.addCocktail) {
+            startActivity(new Intent(
+                    getApplicationContext(), AddCocktail.class
+            ));
         }
 
         return super.onOptionsItemSelected(item);
