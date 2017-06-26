@@ -23,8 +23,11 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
     public ListView cocktailsList;
-    public String cocktailJSON = "[{\"name\": \"Rum & Coke\", \"drinks\": [{\"id\": 0, \"shots\": 2}, {\"id\": 2, \"shots\": 4}]}]";
-    public final String drinksJSON = "[{\"name\": \"Rum\",\"position\": 0, \"id\": 0},{\"name\": \"Whiskey\",\"position\": 1, \"id\": 1}]";
+    public String cocktailJSON = "[{\"name\": \"Rum & Coke\", \"drinks\": [{\"id\": 0, \"units\": 2}, {\"id\": 2, \"units\": 4}]}]";
+    public final String drinksJSON = "[" +
+            "{\"name\": \"Rum\",        \"type\": \"liquor\",   \"position\": 0,    \"id\": 0}," +
+            "{\"name\": \"Whiskey\",    \"type\": \"liquor\",   \"position\": 1,    \"id\": 1}," +
+            "{\"name\": \"Coca-Cola\",  \"type\": \"mixer\",    \"position\": 0,    \"id\": 2}]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

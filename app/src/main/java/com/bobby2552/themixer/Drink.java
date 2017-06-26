@@ -6,7 +6,6 @@ package com.bobby2552.themixer;
 
 public class Drink {
     private String name;
-    private int position;
     private int id;
 
     public int getId() {
@@ -25,22 +24,13 @@ public class Drink {
         this.name = name;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
     public Drink() {
 
     }
 
-    public Drink(String name, int position, int id) {
+    public Drink(String name, int id) {
 
         this.name = name;
-        this.position = position;
         this.id = id;
     }
 }
