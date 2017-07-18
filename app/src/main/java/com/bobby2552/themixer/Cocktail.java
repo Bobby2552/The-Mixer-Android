@@ -1,6 +1,7 @@
 package com.bobby2552.themixer;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Created by bns on 6/21/2017.
@@ -30,6 +31,15 @@ public class Cocktail {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDrinkNames() {
+        String names = "";
+        Set<Drink> set = recipe.keySet();
+        for (Drink drink : set) {
+            names += recipe.get(drink) + " " + drink.getName() + ", ";
+        }
+        return names;
     }
 
     public HashMap getRecipe() {

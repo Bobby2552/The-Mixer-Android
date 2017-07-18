@@ -33,8 +33,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Shared.drinks = new ArrayList<>();
+        Shared.cocktails = new ArrayList<>();
 
-        refreshArrays();
+        Shared.drinks.add(new Drink("Bourbon", (short) 0, false));
+        Shared.drinks.add(new Drink("Coca-Cola", (short) 0, true));
 
         System.out.println("Cocktails: " + Arrays.toString(Shared.getCocktailNames()));
 
@@ -55,57 +58,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void refreshArrays() {
-        Shared.cocktails = new ArrayList<>();
-        Shared.drinks = new ArrayList<>();
-        JSONArray drinks = new JSONArray();
-        try {
-            drinks = new JSONArray(drinksJSON);
-        } catch (JSONException e) {
-            Toast.makeText(getApplicationContext(), "JSON Read error", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
+    @Override
+    public void onResume(){
+        super.onResume();
 
-        for (int i = 0; i < drinks.length(); i++) {
-            try {
-                JSONObject drink = drinks.getJSONObject(i);
-                Shared.drinks.add(new Drink(drink.getString("name"), drink.getInt("position"), drink.getInt("id")));
-            } catch (JSONException e) {
-                e.printStackTrace();
+        Toast.makeText(getApplicationContext(), "" + Shared.cocktails.size(), Toast.LENGTH_SHORT).show();
+
+        cocktailsList = (ListView) findViewById(R.id.cocktails);
+
+        cocktailsList.setAdapter(new ArrayAdapter<String>(this, R.layout.cocktail_adapter, Shared.getCocktailNames()));
+
+        cocktailsList.setTextFilterEnabled(true);
+
+        cocktailsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = (String) ((TextView) view).getText();
+
+                Toast.makeText(getApplicationContext(), "Making a " + name, Toast.LENGTH_SHORT).show();
+                // TODO Send command to Arduino with recipe
             }
-        }
+        });
 
-        JSONArray cocktails = new JSONArray();
-        try {
-            cocktails = new JSONArray(cocktailJSON);
-        } catch (JSONException e) {
-            Toast.makeText(getApplicationContext(), "JSON Read error", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
-
-        for (int i = 0; i < cocktails.length(); i++) {
-            try {
-                JSONObject cocktailObject = cocktails.getJSONObject(i);
-                Cocktail cocktail = new Cocktail();
-                cocktail.setName(cocktailObject.getString("name"));
-                JSONArray drinksArray = cocktailObject.getJSONArray("drinks");
-                for (int j = 0; j < drinksArray.length(); j++) {
-                    JSONObject drinkObject = drinksArray.getJSONObject(i);
-                    // Find drink with same ID
-                    int id = drinkObject.getInt("id");
-                    System.out.println("ID: " + id);
-                    Drink drink = null;
-                    for (int k = 0; k < Shared.drinks.size(); k++) {
-                        if (Shared.drinks.get(k).getId() == id) drink = Shared.drinks.get(k);
-                    }
-                    cocktail.addDrink(drink, drinkObject.getInt("shots"));
-                }
-                Shared.cocktails.add(cocktail);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override

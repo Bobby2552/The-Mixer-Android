@@ -1,20 +1,17 @@
 package com.bobby2552.themixer;
 
+import java.io.Serializable;
+
 /**
  * Created by bns on 6/21/2017.
  */
 
-public class Drink {
+public class Drink implements Serializable {
     private String name;
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private boolean isMixer;
+    public int quantity;
+    private short position;
+    public boolean enabled;
 
     public String getName() {
         return name;
@@ -24,13 +21,24 @@ public class Drink {
         this.name = name;
     }
 
+    public boolean isMixer() {
+        return isMixer;
+    }
+
+    public void setMixer(boolean mixer) {
+        isMixer = mixer;
+    }
+
     public Drink() {
 
     }
 
-    public Drink(String name, int id) {
+    public Drink(String name, short position, boolean isMixer) {
 
         this.name = name;
-        this.id = id;
+        this.position = position;
+        this.quantity = 0;
+        this.enabled = false;
+        this.isMixer = isMixer;
     }
 }
