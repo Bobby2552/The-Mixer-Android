@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Shared.load(getApplicationContext());
+        Shared.read(getApplicationContext());
 
         System.out.println("Cocktails: " + Arrays.toString(Shared.getCocktailNames()));
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 String name = (String) ((TextView) view).getText();
 
                 Toast.makeText(getApplicationContext(), "Making a " + name, Toast.LENGTH_SHORT).show();
-                // TODO Send command to Arduino with recipe
+                Shared.sendMessage(Cocktail.getCocktailFromName(name));
             }
         });
     }
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 String name = (String) ((TextView) view).getText();
 
                 Toast.makeText(getApplicationContext(), "Making a " + name, Toast.LENGTH_SHORT).show();
-                // TODO Send command to Arduino with recipe
+                Shared.sendMessage(Cocktail.getCocktailFromName(name));
             }
         });
 

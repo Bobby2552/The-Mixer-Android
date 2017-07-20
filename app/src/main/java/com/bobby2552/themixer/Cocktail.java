@@ -9,8 +9,8 @@ import java.util.Set;
  */
 
 public class Cocktail implements Serializable {
-    // Drink type, Quantity of shots (1.5 oz)
-    private HashMap<Drink, Integer> recipe;
+    // Drink ID, Quantity
+    private HashMap<Integer, Integer> recipe;
     private String name;
 
     public Cocktail(String name) {
@@ -23,7 +23,16 @@ public class Cocktail implements Serializable {
     }
 
     public void addDrink(Drink drink, Integer shots) {
-        recipe.put(drink, shots);
+        recipe.put(drink.getID(), shots);
+    }
+
+    public static Cocktail getCocktailFromName(String name) {
+        for (Cocktail cocktail : Shared.cocktails) {
+            if (cocktail.getName().equals(name)) {
+                return cocktail;
+            }
+        }
+        return null;
     }
 
     public String getName() {
@@ -36,9 +45,9 @@ public class Cocktail implements Serializable {
 
     public String getDrinkNames() {
         String names = "";
-        Set<Drink> set = recipe.keySet();
-        for (Drink drink : set) {
-            names += recipe.get(drink) + " " + drink.getName() + ", ";
+        Set<Integer> set = recipe.keySet();
+        for (Integer drinkID : set) {
+            names += recipe.get(drinkID) + " " + Drink.decodeID(drinkID).getName() + ", ";
         }
         return names;
     }

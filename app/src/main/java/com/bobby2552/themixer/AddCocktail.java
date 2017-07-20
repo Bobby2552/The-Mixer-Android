@@ -38,7 +38,7 @@ public class AddCocktail extends AppCompatActivity {
                     }
                 }
                 Shared.cocktails.add(newCocktail);
-                Shared.save(getApplicationContext());
+                Shared.write(getApplicationContext());
                 finish();
             }
         });
