@@ -36,6 +36,7 @@ public class Shared {
     public static boolean firstTimeAddingList;
     final static String COCKTAILS_NAME = "cocktails";
     final static String DRINKS_NAME = "drinks";
+    public static Drink editDrink = null;
 
     public static String[] getCocktailNames() {
         String[] names = new String[cocktails.size()];

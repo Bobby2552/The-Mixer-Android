@@ -60,6 +60,15 @@ public class Drink implements Serializable {
         return null;
     }
 
+    public static Drink decodeName(String name) {
+        for (Drink drink : Shared.drinks) {
+            if (drink.getName().equals(name)) {
+                return drink;
+            }
+        }
+        return null;
+    }
+
     public Drink(String name, byte position, boolean isMixer) {
 
         this.name = name;
