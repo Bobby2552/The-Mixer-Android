@@ -33,11 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Shared.drinks = new ArrayList<>();
-        Shared.cocktails = new ArrayList<>();
-
-        Shared.drinks.add(new Drink("Bourbon", (short) 0, false));
-        Shared.drinks.add(new Drink("Coca-Cola", (short) 0, true));
+        Shared.load(getApplicationContext());
 
         System.out.println("Cocktails: " + Arrays.toString(Shared.getCocktailNames()));
 
@@ -61,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-
-        Toast.makeText(getApplicationContext(), "" + Shared.cocktails.size(), Toast.LENGTH_SHORT).show();
 
         cocktailsList = (ListView) findViewById(R.id.cocktails);
 

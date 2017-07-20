@@ -37,8 +37,8 @@ public class AddCocktail extends AppCompatActivity {
                         newCocktail.addDrink(drink, drink.quantity);
                     }
                 }
-                Toast.makeText(getApplicationContext(), "New Cocktail added with " + newCocktail.getDrinkNames(), Toast.LENGTH_LONG ).show();
                 Shared.cocktails.add(newCocktail);
+                Shared.save(getApplicationContext());
                 finish();
             }
         });

@@ -1,5 +1,6 @@
 package com.bobby2552.themixer;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -7,7 +8,7 @@ import java.util.Set;
  * Created by bns on 6/21/2017.
  */
 
-public class Cocktail {
+public class Cocktail implements Serializable {
     // Drink type, Quantity of shots (1.5 oz)
     private HashMap<Drink, Integer> recipe;
     private String name;
