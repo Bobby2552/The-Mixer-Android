@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +29,14 @@ public class CocktailDrinkChoiceAdapter extends ArrayAdapter<Drink> {
 
     public CocktailDrinkChoiceAdapter(Context context, int resource, List<Drink> items) {
         super(context, resource, items);
+        Log.d("TAG", "I'm the constructor and I'm being called.");
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View v = convertView;
+        Log.d("TAG", "I'm here!");
 
         if (v == null) {
             LayoutInflater vi;
@@ -43,9 +46,16 @@ public class CocktailDrinkChoiceAdapter extends ArrayAdapter<Drink> {
 
         final Drink drink = getItem(position);
 
+        Log.d("TAG", drink.toString());
+
         if (drink != null) {
+            Log.d("TAG", "NAME: " + drink.getName() + ", QUANTITY: " + drink.quantity);
             final CheckBox name = (CheckBox) v.findViewById(R.id.drinkNameChoice);
             final EditText shots = (EditText) v.findViewById(R.id.shotIncrement);
+            if (drink.quantity != 0) {
+                shots.setText(drink.quantity + "");
+            }
+            name.setChecked(drink.enabled);
             shots.setHint((drink.isMixer()) ? "Ounces" : "Shots (1.5 oz)");
             name.setOnClickListener(new View.OnClickListener() {
                 @Override

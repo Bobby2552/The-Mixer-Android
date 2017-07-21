@@ -39,8 +39,21 @@ public class Drink implements Serializable {
         isMixer = mixer;
     }
 
-    public Drink() {
+    @Override
+    public String toString() {
+        return "Drink{" +
+                "name='" + name + '\'' +
+                ", isMixer=" + isMixer +
+                ", quantity=" + quantity +
+                ", id=" + id +
+                ", position=" + position +
+                ", enabled=" + enabled +
+                '}';
+    }
 
+    public Drink() {
+        Random random = new Random();
+        this.id = random.nextInt(1000000000);
     }
 
     public int getID() {
@@ -58,6 +71,10 @@ public class Drink implements Serializable {
             }
         }
         return null;
+    }
+
+    public Drink(int id) {
+        this.id = id;
     }
 
     public static Drink decodeName(String name) {

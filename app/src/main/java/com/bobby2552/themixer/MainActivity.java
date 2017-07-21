@@ -3,9 +3,12 @@ package com.bobby2552.themixer;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Shared.read(getApplicationContext());
+        Shared.write(getApplicationContext());
 
         System.out.println("Cocktails: " + Arrays.toString(Shared.getCocktailNames()));
 
@@ -42,6 +46,18 @@ public class MainActivity extends AppCompatActivity {
         cocktailsList.setAdapter(new ArrayAdapter<String>(this, R.layout.cocktail_adapter, Shared.getCocktailNames()));
 
         cocktailsList.setTextFilterEnabled(true);
+
+        cocktailsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = (String) ((TextView) view).getText();
+                Shared.editCocktail = Cocktail.getCocktailFromName(name);
+                Shared.cocktails.remove(Shared.editCocktail);
+
+                startActivity(new Intent(getApplicationContext(), AddCocktail.class));
+                return true;
+            }
+        });
 
         cocktailsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -58,22 +74,14 @@ public class MainActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
 
+        Shared.read(getApplicationContext());
+        Shared.write(getApplicationContext());
+
         cocktailsList = (ListView) findViewById(R.id.cocktails);
 
         cocktailsList.setAdapter(new ArrayAdapter<String>(this, R.layout.cocktail_adapter, Shared.getCocktailNames()));
 
         cocktailsList.setTextFilterEnabled(true);
-
-        cocktailsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = (String) ((TextView) view).getText();
-
-                Toast.makeText(getApplicationContext(), "Making a " + name, Toast.LENGTH_SHORT).show();
-                Shared.sendMessage(Cocktail.getCocktailFromName(name));
-            }
-        });
-
     }
 
     @Override

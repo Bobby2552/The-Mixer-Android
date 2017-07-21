@@ -3,10 +3,14 @@ package com.bobby2552.themixer;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,28 +45,40 @@ public class Inventory extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = (String) ((TextView) view).getText();
                 Shared.editDrink = Drink.decodeName(name);
+                Shared.drinks.remove(Shared.editDrink);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                LayoutInflater inflater = getLayoutInflater();
-
-                builder.setView(inflater.inflate(R.layout.dialog_drink, null))
-                        .setPositiveButton("Update/Add", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // TODO make the edits.
-                                dialog.dismiss();
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                builder.create().show();
-
+                startActivity(new Intent(getApplicationContext(), EditDrink.class));
             }
         });
-
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.inventory_action_buttons, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.addDrink) {
+            startActivity(new Intent(
+                    getApplicationContext(), EditDrink.class
+            ));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        drinkList = (ListView) findViewById(R.id.drinks);
+        drinkList.setAdapter(new ArrayAdapter<String>(this, R.layout.drink_inventory_adapter, Shared.getDrinkNames()));
+        drinkList.setTextFilterEnabled(true);
+    }
+
+
 }

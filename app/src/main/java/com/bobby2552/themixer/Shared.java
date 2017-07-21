@@ -37,6 +37,7 @@ public class Shared {
     final static String COCKTAILS_NAME = "cocktails";
     final static String DRINKS_NAME = "drinks";
     public static Drink editDrink = null;
+    public static Cocktail editCocktail = null;
 
     public static String[] getCocktailNames() {
         String[] names = new String[cocktails.size()];
@@ -122,12 +123,6 @@ public class Shared {
 
         Log.d("TAG", "Cocktails:\n\n" + cocktails + "\n\n");
         Log.d("TAG", "Drinks:\n\n" + drinks + "\n\n");
-
-
-
-        drinks = "";
-
-
 
         Shared.cocktails = new ArrayList<Cocktail>();
         Shared.drinks = new ArrayList<Drink>();
