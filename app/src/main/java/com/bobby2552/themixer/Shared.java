@@ -38,6 +38,7 @@ public class Shared {
     final static String DRINKS_NAME = "drinks";
     public static Drink editDrink = null;
     public static Cocktail editCocktail = null;
+    public static final String BLUETOOTH_ADDRESS = "20:15:11:23:95:68";
 
     public static String[] getCocktailNames() {
         String[] names = new String[cocktails.size()];

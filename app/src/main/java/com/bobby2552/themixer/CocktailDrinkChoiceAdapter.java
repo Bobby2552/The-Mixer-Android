@@ -3,6 +3,7 @@ package com.bobby2552.themixer;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -32,8 +33,9 @@ public class CocktailDrinkChoiceAdapter extends ArrayAdapter<Drink> {
         Log.d("TAG", "I'm the constructor and I'm being called.");
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         View v = convertView;
         Log.d("TAG", "I'm here!");
@@ -74,7 +76,7 @@ public class CocktailDrinkChoiceAdapter extends ArrayAdapter<Drink> {
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     try {
                         drink.quantity = Integer.parseInt(shots.getText().toString());
-                    } catch (ClassCastException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
