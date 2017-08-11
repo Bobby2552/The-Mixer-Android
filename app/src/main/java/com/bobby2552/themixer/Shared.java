@@ -58,18 +58,19 @@ public class Shared {
 
     public static void sendMessage(Cocktail cocktail) {
         // TODO Add some real functionality in here.
+        // TODO Send the message twice.
         Log.d("TAG", "\t\t\t\t\t\t\t\t\t\tSENDING THE FOLLOWING......\n" + generateMessage(cocktail));
     }
 
     public static String generateMessage(Cocktail cocktail) {
+        // TODO Sort while generating.
         String message = "";
         message += 170;
         message += " ";
         Iterator iterator = cocktail.getRecipe().entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry drink = (Map.Entry) iterator.next();
-            // Send the instruction thrice * number of times for fallback.
-            for (int i = 0; i < /*3 **/ (Integer) drink.getValue(); i++) {
+            for (int i = 0; i < (Integer) drink.getValue(); i++) {
                 message += (Drink.decodeID((Integer) drink.getKey()).isMixer()) ? 1 : 0;
                 message += (Drink.decodeID((Integer) drink.getKey()).getPosition());
                 message += " ";
